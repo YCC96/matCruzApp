@@ -12,6 +12,8 @@ import { ComprasTelefonoComponent } from './components/content-pages/compras-tel
 import { ContactanosComponent } from './components/content-pages/contactanos/contactanos.component';
 import { NosotrosComponent } from './components/content-pages/nosotros/nosotros.component';
 import { InicioComponent } from './components/content-pages/inicio/inicio.component';
+import { CatalogoComponent } from './components/content-pages/catalogo/catalogo.component';
+import { CatalogosComponent } from './components/content-pages/catalogos/catalogos.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { InicioComponent } from './components/content-pages/inicio/inicio.compon
     ComprasTelefonoComponent,
     ContactanosComponent,
     NosotrosComponent,
-    InicioComponent
+    InicioComponent,
+    CatalogoComponent,
+    CatalogosComponent
   ],
   imports: [
     BrowserModule,

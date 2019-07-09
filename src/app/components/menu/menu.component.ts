@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+declare var $:any;
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  imgNavBar:string;
+
   constructor() { }
 
   ngOnInit() {
+    this.cargaImagen();
+  }
+
+  cargaImagen(){
+    this.imgNavBar = environment.apiConfig.urlImagenes.navbar;
+    $("#imgNavBar").prop('src', this.imgNavBar);
   }
 
 }

@@ -1,9 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 .body {
     background-color: rgb(223, 223, 223);
+    /*
     background: url(./assets/image/mc.png) no-repeat center top;
+    */
 }
 
+/*letras color rojo para texto obligatorio*/
 .ast-obligatorio {
     color: red;
+}
+
+/*borde color rojo para los inputs requeridos*/
+.ng-invalid.ng-touched:not(form){
+    border: 1px solid #FF1812;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
 }

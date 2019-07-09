@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+declare var $:any;
 
 @Component({
   selector: 'app-contactanos',
@@ -6,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contactanos.component.css']
 })
 export class ContactanosComponent implements OnInit {
-
-  constructor() { }
-
+  
+  urlMapa:string;
   mensaje:any = {
     nombre: '',
     correo: '',
@@ -16,7 +17,15 @@ export class ContactanosComponent implements OnInit {
     mensaje: ''
   }
 
+  constructor() { }
+  
   ngOnInit() {
+    this.cargarMapa();
+  }
+  
+  cargarMapa(){
+    this.urlMapa = environment.apiConfig.urlmapa;
+    $("#urlMapa").prop('src', this.urlMapa);
   }
 
   enviarMensaje(){
