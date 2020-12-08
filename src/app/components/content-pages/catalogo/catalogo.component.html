@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-body">
+        <h1>{{title}}</h1>
+        <hr>
+
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Peso</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let lista of catalogos;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{ lista.descripcion }}</td>
+                <td>{{ lista.tipo }}</td>
+                <td>{{ lista.peso }}</td>
+                <td class="text-center">
+                    <img (click)="abrirImagen(i)" class="imagen cursor" src="{{lista.imagen}}" alt="">
+                </td>
+              </tr>
+            </tbody>
+        </table>
+
+        <br><br>
+        <div class="text-right">
+            <button type="button" class="btn btn-outline-secondary" (click)="regresar()" style="margin-right: 10px;">
+                Regresar
+            </button>
+            <button type="button" class="btn btn-outline-primary" (click)="hacerPedido()">
+                Hacer pedido
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">{{ modal.title }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="text-center">
+                <img src="{{modal.img}}" alt="">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
