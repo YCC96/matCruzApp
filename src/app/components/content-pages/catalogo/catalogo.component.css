@@ -1,0 +1,13 @@
+.img {
+    width: 100px;
+}
+
+p {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.overflow-visible {
+    white-space: initial;
+}

@@ -1,0 +1,11 @@
+﻿CATALOGO,ID,PRODUCTO,DESCRIPCION,PESO / MEDIDA,Imagen
+construccion,1,cemento,gris,BULTO 50 kg,gas.jpg
+construccion,2,cemento,blanco,bulto 25 kg,gas.jpg
+plomeria,3,codo,cobre,1/2 in,gas.jpg
+plomeria,4,codo,PVC,1/2 in,gas.jpg
+electrico,5,cable,cobre,N. 12,gas.jpg
+electrico,6,contacto,plastico,,gas.jpg
+hogar,7,Extension,N. 8,2 m,gas.jpg
+hogar,8,Pega moscas,,,gas.jpg
+gas,9,Regulador,sencillo,,gas.jpg
+gas,10,Regulador,doble,,gas.jpg
