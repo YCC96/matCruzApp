@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2'
 declare var $:any;
+//import { environment } from 'src/environments/environment';
+//import * as catalogos from '../../../../assets/json/catalogos.json';
 
 @Component({
   selector: 'app-catalogo',
@@ -18,6 +20,7 @@ export class CatalogoComponent implements OnInit {
   dataTable = [];
 
   constructor( private _activeRoute:ActivatedRoute,
+    private _router: Router, private _router1: ActivatedRoute, private _router2: Location
     ) { }
 
   ngOnInit() {
@@ -76,6 +79,14 @@ export class CatalogoComponent implements OnInit {
       imageHeight: 200,
       imageAlt: list.producto,
     })
+  }
+
+  regresar() {
+    this._router2.back();
+  }
+
+  hacerPedido() {
+    this._router.navigate(['/pagina', 'compras-por-telefono']);
   }
 
 }

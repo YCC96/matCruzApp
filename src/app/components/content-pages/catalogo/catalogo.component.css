@@ -11,3 +11,8 @@ p {
 .overflow-visible {
     white-space: initial;
 }
+
+.imagen {
+    width: 70px;
+    height: 90px;
+}
