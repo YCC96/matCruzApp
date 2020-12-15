@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'pagina', component: PrincipalPageComponent, children:[
     {path: 'catalogos', component: CatalogosComponent },
     {path: 'catalogo/:tipo', component: CatalogoComponent },
-    {path: 'comprasTelefono', component: ComprasTelefonoComponent },
+    {path: 'compras-por-telefono', component: ComprasTelefonoComponent },
     {path: 'contactanos', component: ContactanosComponent },
     {path: 'nosotros', component: NosotrosComponent },
     {path: 'inicio', component: InicioComponent }

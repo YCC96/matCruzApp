@@ -14,7 +14,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let list of dataTable" (click)="alert(list)">
+                <tr class="cursor" *ngFor="let list of dataTable" (click)="alert(list)">
                     <th scope="row">{{ list.id }}</th>
                     <td>
                       <p class="overflow-visible">

@@ -70,7 +70,7 @@ export class CatalogoComponent implements OnInit {
     console.log('*_* list: ', list);
     Swal.fire({
       title: list.producto,
-      text: list.descripcion + '\n' + list.pesoMedida,
+      text: list.pesoMedida,
       imageUrl: 'assets/image/' + list.imagen,
       imageWidth: 400,
       imageHeight: 200,
