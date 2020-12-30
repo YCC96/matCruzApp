@@ -11,25 +11,33 @@
                   <th scope="col">Producto</th>
                   <th scope="col">Descripción</th>
                   <th scope="col">Peso/Medida</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="cursor" *ngFor="let list of dataTable" (click)="alert(list)">
-                    <th scope="row">{{ list.id }}</th>
-                    <td>
+                <tr class="cursor" *ngFor="let list of dataTable">
+                    <th scope="row" (click)="alert(list)">{{ list.id }}</th>
+                    <td (click)="alert(list)">
                       <p class="overflow-visible">
                         {{ list.producto }}
                       </p>
                     </td>
-                    <td>
+                    <td (click)="alert(list)">
                       <p class="overflow-visible">
                         {{ list.descripcion }}
                       </p>
                     </td>
-                    <td>
+                    <td (click)="alert(list)">
                       <p class="overflow-visible">
                         {{ list.pesoMedida }}
                       </p>
+                    </td>
+                    <td style="width: 15px;">
+                      <span data-bs-toggle="tooltip" title="Agregar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                      </span>
                     </td>
                 </tr>
               </tbody>
