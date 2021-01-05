@@ -1,0 +1,27 @@
+<div class="row" style="text-align: center;">
+  <h4 *ngIf="flag">Carrito vacio</h4>
+</div>
+<div *ngIf="!flag" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Peso/Medida</th>
+        <th scope="col">
+          X
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of listCar">
+        <th scope="row">{{ list.id }}</th>
+        <td>{{ list.cont }}</td>
+        <td>{{ list.producto }}</td>
+        <td>{{ list.pesoMedida }}</td>
+        <td>{{ list.id }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

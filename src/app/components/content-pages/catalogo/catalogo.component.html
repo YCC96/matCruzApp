@@ -1,56 +1,75 @@
 <div class="card">
     <div class="card-body">
-        <h2>{{ title }}</h2>
-        <hr>
-        <br><br>
-        <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Producto</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Peso/Medida</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cursor" *ngFor="let list of dataTable">
-                    <th scope="row" (click)="alert(list)">{{ list.id }}</th>
-                    <td (click)="alert(list)">
-                      <p class="overflow-visible">
-                        {{ list.producto }}
-                      </p>
-                    </td>
-                    <td (click)="alert(list)">
-                      <p class="overflow-visible">
-                        {{ list.descripcion }}
-                      </p>
-                    </td>
-                    <td (click)="alert(list)">
-                      <p class="overflow-visible">
-                        {{ list.pesoMedida }}
-                      </p>
-                    </td>
-                    <td style="width: 15px;">
-                      <span data-bs-toggle="tooltip" title="Agregar">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                        </svg>
-                      </span>
-                    </td>
-                </tr>
-              </tbody>
-            </table>
+      <h1>{{ title }}</h1>
+      <hr>
+      <br><br>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="search" placeholder="Búsqueda">
+            <label for="search">Búsqueda</label>
+          </div>
         </div>
+      </div>
+
+      <div class="row">
+        <div *ngFor="let list of dataTable" [ngClass]="{'col-sm card-center': list.ban}">
+          <div class="card card-width shadow p-3 mb-5 bg-white rounded" *ngIf="list.ban">
+            <img class="card-img-top" [src]="'assets/image/' + list.imagen" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">ID: {{ list.id }}</h5>
+              <h4 class="card-title">{{ list.producto }}</h4>
+              <hr>
+              <p class="card-text">{{ list.pesoMedida }}</p>
+              <p class="card-text">{{ list.descripcion }}</p>
+              <hr>
+              <div class="row plus">
+                <div class="col"></div>
+                <div class="col-8">
+                  <div class="input-group mb-3">
+                    <button type="button" class="btn btn-outline-primary" (click)="addOrRemoveCar(list, 'remove')">-</button>
+                    <input type="text" class="form-control" readonly [value]="list.cont" style="text-align: center;">
+                    <button type="button" class="btn btn-outline-primary" (click)="addOrRemoveCar(list, 'add')">+</button>
+                  </div>
+                </div>
+                <div class="col"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 <br><br>
-        <div class="text-right">
-          <button type="button" class="btn btn-outline-secondary" (click)="regresar()" style="margin-right: 10px;">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="regresar()">
               Regresar
           </button>
-          <button type="button" class="btn btn-outline-primary" (click)="hacerPedido()">
-              Hacer pedido
+          <button type="button" class="btn btn-outline-primary" (click)="toggleModal('show')">
+              Ver carrito
           </button>
+          <button type="button" class="btn btn-outline-primary" (click)="hacerPedido()">
+            Hacer pedido
+        </button>
       </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="banModal" class="modal fade" id="modalCar" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalCarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCarLabel">Lista de articulos</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="toggleModal('hide')"></button>
+      </div>
+      <div class="modal-body">
+        <app-carrito></app-carrito>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="cleanCar()">Vaciar carrito</button>
+        <button type="button" class="btn btn-outline-primary" (click)="toggleModal('hide')">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </div>

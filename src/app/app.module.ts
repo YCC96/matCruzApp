@@ -14,6 +14,10 @@ import { NosotrosComponent } from './components/content-pages/nosotros/nosotros.
 import { InicioComponent } from './components/content-pages/inicio/inicio.component';
 import { CatalogoComponent } from './components/content-pages/catalogo/catalogo.component';
 import { CatalogosComponent } from './components/content-pages/catalogos/catalogos.component';
+import { CarritoComponent } from './components/content-pages/carrito/carrito.component'
+
+import { MoveDataService } from './service/move-data.service';
+import { ValidacioneGlobalesService } from './service/validaciones-globales.services';
 
 @NgModule({
   declarations: [
@@ -27,14 +31,18 @@ import { CatalogosComponent } from './components/content-pages/catalogos/catalog
     NosotrosComponent,
     InicioComponent,
     CatalogoComponent,
-    CatalogosComponent
+    CatalogosComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    MoveDataService,
+    ValidacioneGlobalesService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

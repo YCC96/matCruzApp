@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import SecureLS from 'secure-ls';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { ValidacioneGlobalesService } from '../../../service/validaciones-globales.services';
 declare var $:any;
 
 @Component({
@@ -10,36 +11,37 @@ declare var $:any;
 })
 export class CatalogosComponent implements OnInit {
 
-  imgCard1:string;
-  imgCard2:string;
-  imgCard3:string;
-  imgCard4:string;
-  imgCard5:string;
-  imgCard6:string;
+  dataTable = [];
+  tipo: string = '';
+  listCatalogos = [];
+  flags: boolean = false;
+  ls = new SecureLS({encodingType: 'aes'});
 
-  constructor( private _router:Router) { }
+  constructor(
+    private _router:Router,
+    private _valid: ValidacioneGlobalesService,
+    ) { }
 
   ngOnInit() {
-    this.cargaImagen();
-  }
-
-  cargaImagen(){
-    this.imgCard1 = environment.apiConfig.urlImagenes.catalogos.construccion;
-    this.imgCard2 = environment.apiConfig.urlImagenes.catalogos.plomeria;
-    this.imgCard3 = environment.apiConfig.urlImagenes.catalogos.electrico;
-    this.imgCard4 = environment.apiConfig.urlImagenes.catalogos.hogar;
-    this.imgCard5 = environment.apiConfig.urlImagenes.catalogos.gas;
-    this.imgCard6 = environment.apiConfig.urlImagenes.catalogos.electrico;
-    $("#imgCard1").prop('src', this.imgCard1);
-    $("#imgCard2").prop('src', this.imgCard2);
-    $("#imgCard3").prop('src', this.imgCard3);
-    $("#imgCard4").prop('src', this.imgCard4);
-    $("#imgCard5").prop('src', this.imgCard5);
-    $("#imgCard6").prop('src', this.imgCard6);
+    this.getFile();
   }
 
   detalleCatalogo(tipo:number){
     this._router.navigate(['/pagina','catalogo', tipo])
+  }
+
+  getFile() {
+    this.dataTable = [];
+    fetch('assets/docs/catalogos.csv')
+    .then(res => res.text())
+    .then(content => {
+      let listHeaders = ['catalogo','etiqueta','descripcion','imagen'];
+      //var json = this.csvJSON(content, listHeaders);
+      this.listCatalogos = this._valid.csvToJson(content, listHeaders);
+      this.flags = true;
+      this.ls.set('listCatalogos', this.listCatalogos);
+      console.log('*_* catalogos json: : ', this.listCatalogos);
+    });
   }
 
 }

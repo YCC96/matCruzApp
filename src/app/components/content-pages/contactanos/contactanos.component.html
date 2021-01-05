@@ -7,13 +7,21 @@
         <form #formMensaje="ngForm" (ngSubmit)="enviarMensaje()">
           <label class="form-label" for="">Nombre completo: <span class="ast-obligatorio">*</span></label>
           <input class="form-control" type="text" [(ngModel)]="mensaje.nombre" name="nombre" required>
+          <label class="form-label" for="">Número de teléfono: <span class="ast-obligatorio">*</span></label>
+          <input class="form-control" type="text" [(ngModel)]="mensaje.telefono" name="telefono" required>
           <label class="form-label" for="">Correo Electrónico: <span class="ast-obligatorio">*</span></label>
           <input class="form-control" type="text" [(ngModel)]="mensaje.correo" name="correo" required>
           <label class="form-label" for="">Asunto: <span class="ast-obligatorio">*</span></label>
           <input class="form-control" type="text" [(ngModel)]="mensaje.asunto" name="asunto" required>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="mensaje.form" name="form" id="ckForm">
+            <label class="form-check-label" for="ckForm">
+              Agregar carrito
+            </label>
+          </div>
           <label class="form-label" for="">Mensaje: <span class="ast-obligatorio">*</span></label>
           <textarea class="form-control" rows="7" [(ngModel)]="mensaje.mensaje" name="mensaje" required></textarea>
-
+          <br>
           <div class="row modal-footer">
             <button class="btn btn-primary" type="submit" [disabled]="!formMensaje.valid">Enviar</button>
           </div>

@@ -1,23 +1,32 @@
-.card-color-blue {
-    /*
-    background-color: rgb(151, 154, 155);
-    background-color: rgb(10, 172, 236);
-    background-color: rgb(255, 238, 0);
-    background-color: rgb(134, 164, 218);
+.imagen {
+    width: 70px;
+    height: 90px;
+}
 
-    ~~~~~~~~ opciones ~~~~~~~~
-    azul
-    background-color: rgb(0, 195, 255);
+.card-img-top{
+    height: 200px;
+}
 
-    azul con boton primary
-    background-color: rgb(87, 191, 209);
-    */
-    background-color: rgb(26, 134, 167);
-    width: 22rem;
+.card-body {
+    text-align: center;
+}
+
+.card-text {
+    text-align: left;
+    white-space: initial;
+    box-sizing: content-box;
+    width: 100%;
 }
 
 .card-center{
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.card-width {
+    /*
+    background-color: rgb(26, 134, 167);
+    */
+    width: 22rem;
 }

@@ -16,3 +16,36 @@ p {
     width: 70px;
     height: 90px;
 }
+
+.card-img-top{
+    height: 190px;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-text {
+    text-align: left;
+    white-space: initial;
+    box-sizing: content-box;
+    width: 100%;
+}
+
+.card-center{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.card-width {
+    width: 18rem;
+}
+
+.plus {
+    font-size: 28px;
+}
+
+.bi-plus{
+    color: black;
+}

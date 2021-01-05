@@ -9,21 +9,23 @@ declare var $:any;
   styleUrls: ['./contactanos.component.css']
 })
 export class ContactanosComponent implements OnInit {
-  
+
   urlMapa:string;
   mensaje:any = {
     nombre: '',
+    telefono: '',
     correo: '',
     asunto: '',
+    form: false,
     mensaje: ''
   }
 
   constructor() { }
-  
+
   ngOnInit() {
     this.cargarMapa();
   }
-  
+
   cargarMapa(){
     this.urlMapa = environment.apiConfig.urlmapa;
     $("#urlMapa").prop('src', this.urlMapa);
@@ -31,7 +33,7 @@ export class ContactanosComponent implements OnInit {
 
   enviarMensaje(){
     /***
-     * 
+     *
      Email.send({
        Host : "smtp.yourisp.com",
        Username : "username",
@@ -47,28 +49,28 @@ export class ContactanosComponent implements OnInit {
     console.log('Enviar mensaje: ', this.mensaje);
 
     /**
-     * 
+     *
      * npm install nodemailer --save --verbose
      * smtpJs
      console.log("nodeMailerSample()");
      var nodemailer = require('nodemailer');
- 
+
      console.log("Creating transport...");
      var transporter = nodemailer.createTransport({
        host: 'smtp.mycompany.com',
        port: 25,
        secure: false, // true for 465, false for other ports
      });
- 
+
      var mailOptions = {
        from: 'my.sender.account@mycompany.com',
        to: 'targetaccount1@othercompany.com,targetaccount2@onemorecompany.com',
        subject: 'Sending Email using Node.js',
        text: 'That was easy!'
      };
- 
+
      console.log("sending email", mailOptions);
- 
+
      transporter.sendMail(mailOptions, function (error, info) {
        console.log("senMail returned!");
        if (error) {
@@ -77,7 +79,7 @@ export class ContactanosComponent implements OnInit {
          console.log('Email sent: ' + info.response);
        }
      });
- 
+
      console.log("End of Script");
      */
 
