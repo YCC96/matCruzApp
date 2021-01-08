@@ -8,7 +8,7 @@
         <div class="col"></div>
         <div class="col">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="search" placeholder="Búsqueda">
+            <input type="text" class="form-control" id="search" placeholder="Búsqueda" [(ngModel)]="busqueda" name="busqueda" (keyup)="search()">
             <label for="search">Búsqueda</label>
           </div>
         </div>
@@ -17,13 +17,15 @@
       <div class="row">
         <div *ngFor="let list of dataTable" [ngClass]="{'col-sm card-center': list.ban}">
           <div class="card card-width shadow p-3 mb-5 bg-white rounded" *ngIf="list.ban">
-            <img class="card-img-top" [src]="'assets/image/' + list.imagen" alt="Card image cap">
+            <img class="card-img-top" [src]="'assets/image/' + list.imagen" alt="Card image cap" (click)="alert(list)">
             <div class="card-body">
               <h5 class="card-title">ID: {{ list.id }}</h5>
               <h4 class="card-title">{{ list.producto }}</h4>
               <hr>
               <p class="card-text">{{ list.pesoMedida }}</p>
               <p class="card-text">{{ list.descripcion }}</p>
+              <hr>
+              <h5 class="card-title">{{ list.precio | convertText:'moneda' }}</h5>
               <hr>
               <div class="row plus">
                 <div class="col"></div>

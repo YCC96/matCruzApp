@@ -51,4 +51,8 @@ export class MenuComponent implements OnInit {
     this._moveData.sendData('cleanAll');
   }
 
+  menu(data){
+    console.log();
+  }
+
 }

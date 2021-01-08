@@ -1,0 +1,19 @@
+.col1 {
+  width: 325px;
+}
+
+.col2 {
+  width: 150px;
+}
+
+.aviso {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 670px) {
+  .row{
+    display: flex;
+    flex-direction: column;
+  }
+}

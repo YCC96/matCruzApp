@@ -1,0 +1,22 @@
+form {
+  width: 100%;
+}
+
+.option{
+  font-size: 10px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.obligatorios{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 12px;
+  color: red;
+}
+
+.txtarea {
+  height: 100px;
+}

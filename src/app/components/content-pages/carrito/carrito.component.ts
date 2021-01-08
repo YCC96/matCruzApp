@@ -8,8 +8,10 @@ import SecureLS from 'secure-ls';
 })
 export class CarritoComponent implements OnInit {
 
-  listCar = [];
   ls = new SecureLS({encodingType: 'aes'});
+  listCar = [];
+  totalArticulos: number = 0;
+  totalPrecio: number = 0;
   flag: boolean = true;
 
   constructor() { }
@@ -17,10 +19,16 @@ export class CarritoComponent implements OnInit {
   ngOnInit() {
     this.cargarList();
   }
-  
+
   cargarList(){
     this.listCar = this.ls.get('listCard');
-    if (this.listCar && this.listCar.length > 0) this.flag = false;
-    console.log('*_* listCard table: ', this.listCar, this.ls.get('listCard'));
+    if (this.listCar && this.listCar.length > 0){
+      this.flag = false
+      for (const ll of this.listCar) {
+        this.totalArticulos = +this.totalArticulos + +ll.cont;
+        this.totalPrecio = +this.totalPrecio + (+ll.cont * +ll.precio);
+      }
+    }
+    console.log('*_* listCard table: ', this.listCar);
   }
 }

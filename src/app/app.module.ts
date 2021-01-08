@@ -14,10 +14,15 @@ import { NosotrosComponent } from './components/content-pages/nosotros/nosotros.
 import { InicioComponent } from './components/content-pages/inicio/inicio.component';
 import { CatalogoComponent } from './components/content-pages/catalogo/catalogo.component';
 import { CatalogosComponent } from './components/content-pages/catalogos/catalogos.component';
-import { CarritoComponent } from './components/content-pages/carrito/carrito.component'
+import { CarritoComponent } from './components/content-pages/carrito/carrito.component';
+import { FormEmailComponent } from './components/content-pages/form-email/form-email.component';
 
+import { ConvertTextPipe } from './pipe/convert-text.pipe';
+
+import { HttpClientModule } from '@angular/common/http';
 import { MoveDataService } from './service/move-data.service';
 import { ValidacioneGlobalesService } from './service/validaciones-globales.services';
+import { MailService } from './service/mail.service';
 
 @NgModule({
   declarations: [
@@ -32,16 +37,20 @@ import { ValidacioneGlobalesService } from './service/validaciones-globales.serv
     InicioComponent,
     CatalogoComponent,
     CatalogosComponent,
-    CarritoComponent
+    CarritoComponent,
+    FormEmailComponent,
+    ConvertTextPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [
     MoveDataService,
     ValidacioneGlobalesService,
+    MailService,
   ],
   bootstrap: [AppComponent]
 })

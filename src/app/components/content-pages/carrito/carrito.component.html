@@ -9,9 +9,8 @@
         <th scope="col">Cantidad</th>
         <th scope="col">Producto</th>
         <th scope="col">Peso/Medida</th>
-        <th scope="col">
-          X
-        </th>
+        <th scope="col">Precio Unidad</th>
+        <th scope="col">Total</th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +19,32 @@
         <td>{{ list.cont }}</td>
         <td>{{ list.producto }}</td>
         <td>{{ list.pesoMedida }}</td>
-        <td>{{ list.id }}</td>
+        <td>{{ list.precio | convertText:'moneda' }}</td>
+        <td>{{ (+list.cont * +list.precio) | convertText:'moneda' }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th scope="row">Total articulos</th>
+        <td>{{ totalArticulos }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th scope="row">Total (mxn)</th>
+        <td>{{ totalPrecio | convertText:'moneda' }}</td>
       </tr>
     </tbody>
   </table>

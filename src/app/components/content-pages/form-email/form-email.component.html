@@ -1,0 +1,50 @@
+<form #formMensaje="ngForm" (ngSubmit)="enviarMensaje()">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="nombre" [(ngModel)]="mensaje.nombre" name="nombre" required placeholder="Nombre">
+    <label for="nombre">Nombre completo: <span class="ast-obligatorio">*</span></label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="telefono" [(ngModel)]="mensaje.telefono" name="telefono" required placeholder="Telefono">
+    <label for="telefono">Número de teléfono: <span class="ast-obligatorio">*</span></label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="correo" [(ngModel)]="mensaje.correo" name="correo" required placeholder="Correo">
+    <label for="correo">Correo Electrónico: <span class="ast-obligatorio">*</span></label>
+  </div>
+
+  <div class="form-floating">
+    <select class="form-select" id="tipoAsunto" aria-label="Floating label select example" [(ngModel)]="mensaje.tipoAsunto" name="tipoAsunto" (change)="selectedAsunto()">
+      <option value="" selected>Seleccione una opción</option>
+      <option value="Lista de precios">Solicitar cotización</option>
+      <option value="Realizar pedido y recogerlo en tienda">Realizar pedido y recogerlo en tienda</option>
+      <option value="Realizar pedido y enviarmelo">Realizar pedido y enviarmelo</option>
+      <option value="Otro">Otro</option>
+    </select>
+    <label for="tipoAsunto">Asunto: <span class="ast-obligatorio">*</span></label>
+  </div>
+
+  <br>
+  <div *ngIf="mensaje.tipoAsunto == 'Otro'" class="form-floating mb-3">
+    <input type="text" class="form-control" id="asunto" [(ngModel)]="mensaje.asunto" name="asunto" placeholder="Asunto" required>
+    <label for="asunto">Asunto: <span class="ast-obligatorio">*</span></label>
+  </div>
+
+  <div *ngIf="mensaje.tipoAsunto == 'Realizar pedido y enviarmelo' || mensaje.tipoAsunto == 'Otro'" class="form-floating">
+    <textarea class="form-control txtarea" placeholder="Leave a comment here" id="direccion" [(ngModel)]="mensaje.direccion" name="direccion"></textarea>
+    <label for="direccion">Dirección de entrega: <span class="option">(Opcional)</span></label>
+  </div>
+
+  <div class="form-floating">
+    <textarea class="form-control txtarea" placeholder="Agrega tu mensaje" id="mensaje" [(ngModel)]="mensaje.mensaje" name="mensaje" required></textarea>
+    <label for="mensaje">Mensaje: <span class="ast-obligatorio">*</span></label>
+  </div>
+
+  <p class="obligatorios">* campos obligatorios.</p>
+  <p class="obligatorios">Los articulos agregados al carrito serán enviados.</p>
+  <br>
+  <div class="row modal-footer">
+    <button class="btn btn-outline-primary" type="submit" [disabled]="!formMensaje.valid || !banAsunto">Enviar</button>
+  </div>
+</form>

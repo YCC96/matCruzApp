@@ -23,9 +23,11 @@ export class CatalogoComponent implements OnInit {
   title: string = '';
 
   dataTable = [];
+  dataTableOriginal = [];
   listCard:any = [];
   listValid = [];
   listCatalogos = [];
+  busqueda: string = '';
 
   ls = new SecureLS({encodingType: 'aes'});
 
@@ -49,7 +51,7 @@ export class CatalogoComponent implements OnInit {
       this.speakMoveData();
     }
   }
-  
+
   speakMoveData(){
     this.moveDataSubs = this._moveData.moveData$.subscribe(result => {
       console.log('*_* result: ', result);
@@ -58,11 +60,11 @@ export class CatalogoComponent implements OnInit {
   }
 
   getFile() {
-    this.dataTable = [];
+    this.dataTableOriginal = [];
     fetch('assets/docs/catalogo.csv')
     .then(res => res.text())
     .then(content => {
-      var headers = ['catalogo', 'id', 'producto', 'descripcion', 'pesoMedida', 'imagen'];
+      var headers = ['catalogo', 'id', 'producto', 'descripcion', 'pesoMedida', 'precio', 'imagen'];
       //var json = this.csvJSON(content);
       var json = this._valid.csvToJson(content, headers);
       this._activeRoute.params.subscribe( params => {
@@ -74,9 +76,9 @@ export class CatalogoComponent implements OnInit {
             this.title = lC.etiqueta;
           }
         }
-        
+
         for (const ll of json) {
-          this.dataTable.push(
+          this.dataTableOriginal.push(
             {
               ...ll,
               cont: 0,
@@ -84,20 +86,41 @@ export class CatalogoComponent implements OnInit {
             }
           )
         }
+        this.dataTable = JSON.parse(JSON.stringify(this.dataTableOriginal))
         this.validLS();
-        console.log('*_* dataTable: ', this.dataTable);
+        console.log('*_* dataTableOriginal: ', this.dataTableOriginal);
       });
     });
   }
 
+  search(){
+    this.dataTable = this.dataTableOriginal.filter(data => {
+      console.log('*_* filter: ',data.descripcion, data.descripcion.toLowerCase().includes('gris'));
+
+    });
+  }
+
   alert(list) {
-    console.log('*_* list: ', list);
+    console.log('*_* list: ', list, screen.width);
+    var imgWidth = 0
+    var imgheight = 0
+    if (screen.width < 450) {
+      imgWidth = 400;
+      imgheight = 300;
+    }
+    if (screen.width >= 450 && screen.width < 620) {
+      imgWidth = 450;
+      imgheight = 350;
+    }
+    if (screen.width >= 620) {
+      imgWidth = 600;
+      imgheight = 500;
+    }
     Swal.fire({
-      title: list.producto,
-      text: list.pesoMedida,
       imageUrl: 'assets/image/' + list.imagen,
-      imageWidth: 400,
-      imageHeight: 200,
+      width: imgWidth + 'px',
+      imageWidth: imgWidth,
+      imageHeight: imgheight,
       imageAlt: list.producto,
     })
   }
@@ -119,7 +142,7 @@ export class CatalogoComponent implements OnInit {
   }
 
   hacerPedido() {
-    this._router.navigate(['/pagina', 'compras-por-telefono']);
+    this._router.navigate(['/pagina', 'compras']);
   }
 
   addOrRemoveCar(list, accion: string){
@@ -142,7 +165,7 @@ export class CatalogoComponent implements OnInit {
     }
     this.ls.set('listCard', this.listCard);
     console.log('*_* LS: ', this.listCard);
-    
+
   }
 
   toggleModal(accion: string){
@@ -167,11 +190,11 @@ export class CatalogoComponent implements OnInit {
     }, 1);
     this.cleanCatalogos();
   }
-  
+
   regresar() {
     this._router2.back();
   }
-  
+
   destroyed() {
     this.moveDataSubs.unsubscribe();
   }
