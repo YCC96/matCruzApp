@@ -9,7 +9,7 @@ export class ValidacioneGlobalesService {
     var lines = csv.split("\n");
     var result = [];
     //var headers = ['catalogo', 'id', 'producto', 'descripcion', 'pesoMedida', 'imagen'];
-    console.log('*_* headers: ', headers);
+
     for (var i = 1; i < lines.length; i++) {
       var obj = {};
       var currentline = lines[i].split(",");
@@ -22,7 +22,7 @@ export class ValidacioneGlobalesService {
   }
 
   numberFormat(numero, decimales, separadorDecimal, separadorMiles) {
-    console.log('*_* global service: ', numero);
+
     var banNeg: boolean = false;
     banNeg = (String(numero).search('-') > -1 ? true : false);
     numero = numero + '';

@@ -40,7 +40,7 @@ export class CatalogosComponent implements OnInit {
       this.listCatalogos = this._valid.csvToJson(content, listHeaders);
       this.flags = true;
       this.ls.set('listCatalogos', this.listCatalogos);
-      console.log('*_* catalogos json: : ', this.listCatalogos);
+
     });
   }
 

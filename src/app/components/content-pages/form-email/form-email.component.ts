@@ -35,14 +35,14 @@ export class FormEmailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('*_*: ', this.component);
+
 
     this.cargarMapa();
   }
 
   cargarMapa(){
     this.listCar = (this.ls.get('listCard')==undefined||this.ls.get('listCard')==null||this.ls.get('listCard')==''?[]:this.ls.get('listCard'));
-    console.log('*_* : init: ', this.listCar);
+
 
     this.urlMapa = environment.apiConfig.urlmapa;
     $("#urlMapa").prop('src', this.urlMapa);
@@ -132,12 +132,12 @@ export class FormEmailComponent implements OnInit {
       '</tr>';
 
     dataTemplate.from_car = dataTemplate.from_car.replace('#####', stringTemp);
-    console.log('Enviar mensaje: ', this.mensaje, dataTemplate);
+
 
     this._mail.sendMail(dataTemplate).subscribe(result => {
-      console.log('*_* respuesta de mail: ', result);
+
     }, error => {
-      console.log('*_* error: ', error);
+
     });
 
   }

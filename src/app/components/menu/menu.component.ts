@@ -52,7 +52,7 @@ export class MenuComponent implements OnInit {
   }
 
   menu(data){
-    console.log();
+
   }
 
 }

@@ -54,7 +54,7 @@ export class CatalogoComponent implements OnInit {
 
   speakMoveData(){
     this.moveDataSubs = this._moveData.moveData$.subscribe(result => {
-      console.log('*_* result: ', result);
+
       if (result && result == 'cleanAll') this.cleanCatalogos();
     });
   }
@@ -69,7 +69,7 @@ export class CatalogoComponent implements OnInit {
       var json = this._valid.csvToJson(content, headers);
       this._activeRoute.params.subscribe( params => {
         this.tipo = params['tipo']
-        console.log('*_*: ', json);
+
 
         for(const lC of this.listCatalogos){
           if (this.tipo == lC.catalogo) {
@@ -78,30 +78,33 @@ export class CatalogoComponent implements OnInit {
         }
 
         for (const ll of json) {
-          this.dataTableOriginal.push(
-            {
-              ...ll,
-              cont: 0,
-              ban: (ll.catalogo==this.tipo?true:false)
-            }
-          )
+          if (ll.catalogo != '') {
+            this.dataTableOriginal.push(
+              {
+                ...ll,
+                cont: 0,
+                ban: (ll.catalogo==this.tipo?true:false)
+              }
+            )
+          }
         }
         this.dataTable = JSON.parse(JSON.stringify(this.dataTableOriginal))
         this.validLS();
-        console.log('*_* dataTableOriginal: ', this.dataTableOriginal);
+
       });
     });
   }
 
   search(){
     this.dataTable = this.dataTableOriginal.filter(data => {
-      console.log('*_* filter: ',data.descripcion, data.descripcion.toLowerCase().includes('gris'));
-
+      if (data.ban && (data.descripcion.toLowerCase().includes(this.busqueda) || data.producto.toLowerCase().includes(this.busqueda))) {
+        return true;
+      }
     });
   }
 
   alert(list) {
-    console.log('*_* list: ', list, screen.width);
+
     var imgWidth = 0
     var imgheight = 0
     if (screen.width < 450) {
@@ -147,13 +150,13 @@ export class CatalogoComponent implements OnInit {
 
   addOrRemoveCar(list, accion: string){
     if ( accion == 'add' || (accion == 'remove' && list.cont > 0)) {
-      console.log('*_* entro: ', this.dataTable)
+
       if (accion=='add') list.cont++;
       if (accion=='remove') list.cont--;
-      console.log(list.cont)
+
     }
     this.subirLS();
-    console.log('*_* addOrRemove:', accion, list.cont, this.dataTable);
+
   }
 
   subirLS(){
@@ -164,7 +167,7 @@ export class CatalogoComponent implements OnInit {
       }
     }
     this.ls.set('listCard', this.listCard);
-    console.log('*_* LS: ', this.listCard);
+
 
   }
 

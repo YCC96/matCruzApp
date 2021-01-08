@@ -30,7 +30,7 @@ export class ContactanosComponent implements OnInit {
 
   cargarMapa(){
     this.listCar = (this.ls.get('listCard')==undefined||this.ls.get('listCard')==null||this.ls.get('listCard')==''?[]:this.ls.get('listCard'));
-    console.log('*_* : init: ', this.listCar);
+
 
     this.urlMapa = environment.apiConfig.urlmapa;
     $("#urlMapa").prop('src', this.urlMapa);

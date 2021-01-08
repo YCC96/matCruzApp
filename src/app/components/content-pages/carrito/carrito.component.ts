@@ -29,6 +29,6 @@ export class CarritoComponent implements OnInit {
         this.totalPrecio = +this.totalPrecio + (+ll.cont * +ll.precio);
       }
     }
-    console.log('*_* listCard table: ', this.listCar);
+
   }
 }
