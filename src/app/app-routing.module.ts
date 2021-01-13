@@ -13,13 +13,13 @@ import { CatalogoComponent } from './components/content-pages/catalogo/catalogo.
 const routes: Routes = [
   { path: 'pagina', component: PrincipalPageComponent, children:[
     {path: 'catalogos', component: CatalogosComponent },
-    {path: 'catalogo/:tipo', component: CatalogoComponent },
+    {path: 'productos/:tipo/:value', component: CatalogoComponent },
     {path: 'compras', component: ComprasTelefonoComponent },
     {path: 'contactanos', component: ContactanosComponent },
     {path: 'nosotros', component: NosotrosComponent },
-    {path: 'inicio', component: InicioComponent }
+    {path: 'home', component: InicioComponent }
   ]},
-  { path: '**', pathMatch: 'full', redirectTo: '/pagina/inicio' }
+  { path: '**', pathMatch: 'full', redirectTo: '/pagina/home' }
 
 ];
 

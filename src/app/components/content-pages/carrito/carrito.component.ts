@@ -21,14 +21,30 @@ export class CarritoComponent implements OnInit {
   }
 
   cargarList(){
-    this.listCar = this.ls.get('listCard');
-    if (this.listCar && this.listCar.length > 0){
-      this.flag = false
-      for (const ll of this.listCar) {
-        this.totalArticulos = +this.totalArticulos + +ll.cont;
-        this.totalPrecio = +this.totalPrecio + (+ll.cont * +ll.precio);
-      }
-    }
+    var listCarLS = this.ls.get('listCard');
+    if (listCarLS && listCarLS.length > 0){
+      var temp = [];
+      for (const ll of listCarLS) {
+        for(const lll of ll.opciones){
+          if(lll.cont > 0){
+            temp.push(
+              {
+                id: ll.id,
+                cantidad: lll.cont,
+                producto: lll.producto,
+                medida: lll.medida,
+                precioUnidad: lll.precio,
+                subTotal: (+lll.cont * +lll.precio)
+              }
+            );
+            this.totalArticulos = +this.totalArticulos + +lll.cont;
+            this.totalPrecio = +this.totalPrecio + (+lll.cont * +lll.precio);
 
+          }
+        }
+      }
+      this.listCar = temp;
+      this.flag = false;
+    }
   }
 }

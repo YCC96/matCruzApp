@@ -3,10 +3,8 @@
       <h1>{{ title }}</h1>
       <hr>
       <br><br>
-      <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col">
+      <div class="row container-buscar">
+        <div class="buscar">
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="search" placeholder="Búsqueda" [(ngModel)]="busqueda" name="busqueda" (keyup)="search()">
             <label for="search">Búsqueda</label>
@@ -15,29 +13,45 @@
       </div>
 
       <div class="row">
-        <div *ngFor="let list of dataTable" [ngClass]="{'col-sm card-center': list.ban}">
+        <div *ngFor="let list of dataTable; index as i" [ngClass]="{'col-sm card-center': list.ban}">
           <div class="card card-width shadow p-3 mb-5 bg-white rounded" *ngIf="list.ban">
             <img class="card-img-top" [src]="'assets/image/' + list.imagen" alt="Card image cap" (click)="alert(list)">
             <div class="card-body">
               <h5 class="card-title">ID: {{ list.id }}</h5>
-              <h4 class="card-title">{{ list.producto }}</h4>
+
+              <h4 class="card-title">{{ list.selected.producto }}</h4>
               <hr>
-              <p class="card-text">{{ list.pesoMedida }}</p>
-              <p class="card-text">{{ list.descripcion }}</p>
+              <!--
+                <p class="card-text">{{ list.selected.medida }}</p>
+
+              -->
+              <p class="card-text">{{ list.selected.descripcion }}</p>
               <hr>
-              <h5 class="card-title">{{ list.precio | convertText:'moneda' }}</h5>
+              <div class="form-floating">
+                <select class="form-select" id="tipoAsunto" aria-label="Floating label select example" (change)="changeCosto($event.target.value, list)">
+                  <option *ngFor="let llCombo of list.opciones" [value]="llCombo.medida">{{ llCombo.medida }}</option>
+                </select>
+                <label for="tipoAsunto">Medida</label>
+              </div>
+
+              <br>
+              <h5 class="card-title">{{ list.selected.precio | convertText:'moneda' }}</h5>
               <hr>
               <div class="row plus">
                 <div class="col"></div>
                 <div class="col-8">
                   <div class="input-group mb-3">
                     <button type="button" class="btn btn-outline-primary" (click)="addOrRemoveCar(list, 'remove')">-</button>
-                    <input type="text" class="form-control" readonly [value]="list.cont" style="text-align: center;">
+                    <input type="text" class="form-control" readonly [value]="list.selected.cont" style="text-align: center;">
                     <button type="button" class="btn btn-outline-primary" (click)="addOrRemoveCar(list, 'add')">+</button>
                   </div>
                 </div>
                 <div class="col"></div>
               </div>
+
+
+
+
             </div>
           </div>
         </div>

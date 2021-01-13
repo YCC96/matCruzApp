@@ -51,8 +51,10 @@ export class MenuComponent implements OnInit {
     this._moveData.sendData('cleanAll');
   }
 
-  menu(data){
-
+  toggleMenu(){
+    if (screen.width <= 991) {
+      $('.navbar-collapse').collapse('hide');
+    }
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import SecureLS from 'secure-ls';
 import { Router } from '@angular/router';
 import { ValidacioneGlobalesService } from '../../../service/validaciones-globales.services';
-declare var $:any;
+import { CatalogosInterface } from '../../../models/catalogos.interface';
 
 @Component({
   selector: 'app-catalogos',
@@ -13,7 +13,10 @@ export class CatalogosComponent implements OnInit {
 
   dataTable = [];
   tipo: string = '';
-  listCatalogos = [];
+  listCatalogos: CatalogosInterface = {
+    listCatalogos: [],
+    listMarcas: []
+  };
   flags: boolean = false;
   ls = new SecureLS({encodingType: 'aes'});
 
@@ -26,8 +29,8 @@ export class CatalogosComponent implements OnInit {
     this.getFile();
   }
 
-  detalleCatalogo(tipo:number){
-    this._router.navigate(['/pagina','catalogo', tipo])
+  detalleCatalogo(area:string, marca: string){
+    this._router.navigate(['/pagina','productos', area, marca]);
   }
 
   getFile() {
@@ -36,12 +39,29 @@ export class CatalogosComponent implements OnInit {
     .then(res => res.text())
     .then(content => {
       let listHeaders = ['catalogo','etiqueta','descripcion','imagen'];
-      //var json = this.csvJSON(content, listHeaders);
-      this.listCatalogos = this._valid.csvToJson(content, listHeaders);
-      this.flags = true;
-      this.ls.set('listCatalogos', this.listCatalogos);
-
+      var dataJson = this._valid.csvToJson(content, listHeaders);
+      this.agruparData(dataJson);
     });
+  }
+
+  agruparData(dataJson){
+    var banMarca: boolean = false;
+    for(const ll of dataJson){
+      if (ll.catalogo != '') {
+        if (ll.catalogo.toLowerCase() == 'marca') {
+          banMarca = true;
+        }
+        if (!banMarca) {
+          this.listCatalogos.listCatalogos.push(ll);
+        } else {
+          if (ll.catalogo.toLowerCase() != 'marca') {
+            this.listCatalogos.listMarcas.push(ll);
+          }
+        }
+      }
+    }
+    this.flags = true;
+    this.ls.set('listCatalogos', this.listCatalogos);
   }
 
 }

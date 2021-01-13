@@ -7,20 +7,20 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Cantidad</th>
+        <th scope="col">Medida</th>
         <th scope="col">Producto</th>
-        <th scope="col">Peso/Medida</th>
         <th scope="col">Precio Unidad</th>
-        <th scope="col">Total</th>
+        <th scope="col">Subtotal</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let list of listCar">
         <th scope="row">{{ list.id }}</th>
-        <td>{{ list.cont }}</td>
+        <td>{{ list.cantidad }}</td>
+        <td>{{ list.medida }}</td>
         <td>{{ list.producto }}</td>
-        <td>{{ list.pesoMedida }}</td>
-        <td>{{ list.precio | convertText:'moneda' }}</td>
-        <td>{{ (+list.cont * +list.precio) | convertText:'moneda' }}</td>
+        <td>{{ list.precioUnidad | convertText:'moneda' }}</td>
+        <td>{{ list.subTotal | convertText:'moneda' }}</td>
       </tr>
       <tr>
         <td></td>

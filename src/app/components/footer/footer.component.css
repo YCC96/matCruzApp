@@ -1,5 +1,5 @@
 .col1 {
-  width: 325px;
+  width: 350px;
 }
 
 .col2 {
@@ -15,5 +15,11 @@
   .row{
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .col1 {
+    font-size: 15px;
   }
 }

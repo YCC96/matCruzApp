@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { MailService } from '../../../service/mail.service';
 import { template_params } from '../../../models/mail.interface';
 import { ValidacioneGlobalesService } from '../../../service/validaciones-globales.services';
+import Swal from 'sweetalert2';
 declare var $:any;
 
 @Component({
@@ -18,6 +19,7 @@ export class FormEmailComponent implements OnInit {
   listCar = [];
   urlMapa:string;
   banAsunto: boolean = false;
+  banSpinner: boolean = false;
   mensaje = {
     nombre: '',
     telefono: '',
@@ -25,7 +27,6 @@ export class FormEmailComponent implements OnInit {
     direccion: '',
     asunto: '',
     tipoAsunto: '',
-    form: false,
     mensaje: ''
   }
 
@@ -35,20 +36,20 @@ export class FormEmailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
     this.cargarMapa();
   }
 
   cargarMapa(){
     this.listCar = (this.ls.get('listCard')==undefined||this.ls.get('listCard')==null||this.ls.get('listCard')==''?[]:this.ls.get('listCard'));
-
-
     this.urlMapa = environment.apiConfig.urlmapa;
     $("#urlMapa").prop('src', this.urlMapa);
   }
 
   async enviarMensaje(){
+    var stringTemp = '';
+    var totalArticulos = 0;
+    var totalPrecio = 0;
+    this.banSpinner = true;
     var dataTemplate: template_params = {
       from_subject: (this.mensaje.tipoAsunto),
       from_name: this.mensaje.nombre,
@@ -63,11 +64,11 @@ export class FormEmailComponent implements OnInit {
       '    <th scope="col">ID</th>' +
       '    <th scope="col">Catalogo</th>' +
       '    <th scope="col">Cantidad</th>' +
+      '    <th scope="col">Medida</th>' +
       '    <th scope="col">Producto</th>' +
       '    <th scope="col">Descripcion</th>' +
-      '    <th scope="col">Peso/Medida</th>' +
       '    <th scope="col">Precio unidad</th>' +
-      '    <th scope="col">Total</th>' +
+      '    <th scope="col">Subtotal</th>' +
       '  </tr>' +
       '</thead>' +
       ' <tbody>' +
@@ -77,24 +78,27 @@ export class FormEmailComponent implements OnInit {
       '<br>'
       }
 
-    var stringTemp = '';
-    var totalArticulos = 0;
-    var totalPrecio = 0;
     for (const ll of this.listCar) {
-      stringTemp = stringTemp +
-      '<tr style="border: 1px solid #000;">' +
-        '<th scope="row">' + ll.id + '</th>' +
-        '<td>' + ll.catalogo + '</td>' +
-        '<td>' + ll.cont + '</td>' +
-        '<td>' + ll.producto + '</td>' +
-        '<td>' + ll.descripcion + '</td>' +
-        '<td>' + ll.pesoMedida + '</td>' +
-        '<td>' + this._valGlobals.numberFormat(ll.precio, 2, '.', ',') + '</td>' +
-        '<td>' + this._valGlobals.numberFormat((+ll.cont * +ll.precio), 2, '.', ',') + '</td>' +
-      '</tr>';
-      totalArticulos = +totalArticulos + +ll.cont;
-      totalPrecio = +totalPrecio + (+ll.cont * +ll.precio);
+      for(const lll of ll.opciones){
+        if(lll.cont > 0){
+          stringTemp = stringTemp +
+            '<tr style="border: 1px solid #000;">' +
+              '<th scope="row">' + ll.id + '</th>' +
+              '<td>' + ll.catalogo + '</td>' +
+              '<td>' + lll.cont + '</td>' +
+              '<td>' + lll.medida + '</td>' +
+              '<td>' + lll.producto + '</td>' +
+              '<td>' + lll.descripcion + '</td>' +
+              '<td>' + this._valGlobals.numberFormat(lll.precio, 2, '.', ',') + '</td>' +
+              '<td>' + this._valGlobals.numberFormat((+lll.cont * +lll.precio), 2, '.', ',') + '</td>' +
+            '</tr>';
+          totalArticulos = +totalArticulos + +lll.cont;
+          totalPrecio = +totalPrecio + (+lll.cont * +lll.precio);
+
+        }
+      }
     }
+
     stringTemp = stringTemp +
       '<tr style="border: 1px solid #000;">' +
         '<th scope="row"></th>' +
@@ -130,16 +134,18 @@ export class FormEmailComponent implements OnInit {
         '<th scope="row">Total (mxn)</th>' +
         '<td>' + this._valGlobals.numberFormat(totalPrecio, 2, '.', ',') + '</td>' +
       '</tr>';
-
     dataTemplate.from_car = dataTemplate.from_car.replace('#####', stringTemp);
-
-
     this._mail.sendMail(dataTemplate).subscribe(result => {
-
+      this.banSpinner = false;
+      if (result.status == 200) {
+        this.alertExito();
+      }
     }, error => {
-
+      this.banSpinner = false;
+      if (error.status == 200) {
+        this.alertExito();
+      }
     });
-
   }
 
   selectedAsunto(){
@@ -148,6 +154,27 @@ export class FormEmailComponent implements OnInit {
     } else {
       this.banAsunto = true;
     }
+  }
+
+  alertExito(){
+    this.cleanForm();
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'Tu pedido se envio con éxito.',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+
+  cleanForm(){
+    this.mensaje.asunto = '';
+    this.mensaje.correo = '';
+    this.mensaje.direccion = '';
+    this.mensaje.mensaje = '';
+    this.mensaje.nombre = '';
+    this.mensaje.telefono = '';
+    this.mensaje.tipoAsunto = '';
   }
 
 }

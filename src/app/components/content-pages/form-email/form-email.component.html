@@ -45,6 +45,10 @@
   <p class="obligatorios">Los articulos agregados al carrito serán enviados.</p>
   <br>
   <div class="row modal-footer">
-    <button class="btn btn-outline-primary" type="submit" [disabled]="!formMensaje.valid || !banAsunto">Enviar</button>
+    <button *ngIf="!banSpinner" class="btn btn-outline-primary" type="submit" [disabled]="!formMensaje.valid || !banAsunto">Enviar</button>
+    <button *ngIf="banSpinner" class="btn btn-primary" type="button" disabled>
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      Enviando...
+    </button>
   </div>
 </form>

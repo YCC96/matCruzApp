@@ -2,8 +2,15 @@
     <div class="card-body">
       <h1>Catálogos</h1>
       <hr>
-      <div *ngIf="flags" class="row">
-        <div *ngFor="let list of listCatalogos" class="col-sm card-center">
+      <div *ngIf="flags">
+
+      </div>
+      <h3 *ngIf="listCatalogos.listCatalogos.length > 0">Areas / Secciones</h3>
+      <hr *ngIf="listCatalogos.listCatalogos.length > 0">
+
+      <div *ngIf="listCatalogos.listCatalogos.length > 0" class="row">
+
+        <div *ngFor="let list of listCatalogos.listCatalogos" class="col-sm card-center">
           <div class="card card-width shadow p-3 mb-5 bg-white rounded">
             <img class="card-img-top" [src]="'assets/image/' + list.imagen" alt="Card image cap">
             <div class="card-body">
@@ -12,11 +19,32 @@
               <p class="card-text">{{ list.descripcion }}</p>
               <hr>
               <div class="d-grid gap-2">
-                <button class="btn btn-outline-primary" type="button" (click)="detalleCatalogo(list.catalogo)">Ver lista</button>
+                <button class="btn btn-outline-primary" type="button" (click)="detalleCatalogo('catalogo', list.catalogo)">Ver lista</button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <hr *ngIf="listCatalogos.listMarcas.length > 0">
+      <h3 *ngIf="listCatalogos.listMarcas.length > 0">Marcas</h3>
+      <hr *ngIf="listCatalogos.listMarcas.length > 0">
+      <div *ngIf="listCatalogos.listMarcas.length > 0" class="row">
+        <div *ngFor="let list of listCatalogos.listMarcas" class="col-sm card-center">
+          <div class="card card-width shadow p-3 mb-5 bg-white rounded">
+            <img class="card-img-top" [src]="'assets/image/' + list.imagen" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">{{ list.etiqueta }}</h4>
+              <hr>
+              <p class="card-text">{{ list.descripcion }}</p>
+              <hr>
+              <div class="d-grid gap-2">
+                <button class="btn btn-outline-primary" type="button" (click)="detalleCatalogo('marca', list.catalogo)">Ver lista</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 </div>

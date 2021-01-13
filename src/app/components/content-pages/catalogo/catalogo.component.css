@@ -49,3 +49,18 @@ p {
 .bi-plus{
     color: black;
 }
+
+.container-buscar{
+  display: flex;
+  justify-content: center;
+}
+
+.buscar {
+  width: 50%;
+}
+
+@media screen and (max-width: 750px) {
+  .buscar {
+    width: 100%;
+  }
+}
