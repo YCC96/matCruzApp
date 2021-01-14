@@ -44,8 +44,8 @@ export class CatalogoComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    var catalogosLS = (this.ls.get('listCatalogos') != undefined && this.ls.get('listCatalogos') != null && this.ls.get('listCatalogos') != ''? this.ls.get('listCatalogos') : []);
-    if (catalogosLS.length == 0) {
+    var catalogosLS = (this.ls.get('listCatalogos') != undefined && this.ls.get('listCatalogos') != null && this.ls.get('listCatalogos') != ''? this.ls.get('listCatalogos') : null);
+    if (catalogosLS == null) {
       this._router.navigate(['/pagina','catalogos']);
     } else {
       this.listCatalogos = catalogosLS;
@@ -198,7 +198,10 @@ export class CatalogoComponent implements OnInit {
   }
 
   cleanCatalogos(){
-    for(const ll of this.dataTable) ll.cont = 0;
+    for(const ll of this.dataTable){
+      ll.selected.cont = 0;
+      for(const lll of ll.opciones) lll.cont = 0;
+    }
     this.subirLS();
   }
 
