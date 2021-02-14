@@ -30,3 +30,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ##
 ng build --base-href=/materialescruz
 jar -cvf "materialescruz.war" */
+
+## firebase
+firebase serve
+firebase deploy
+
+-------------
+hacer ng build
+carpeta dist copiar a public
