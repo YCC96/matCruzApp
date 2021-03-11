@@ -38,3 +38,9 @@ firebase deploy
 -------------
 hacer ng build
 carpeta dist copiar a public
+
+
+### deploy firebase
+```
+firebase deploy --only hosting:materialescruz-a937e
+```
